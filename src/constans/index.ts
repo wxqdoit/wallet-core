@@ -5,7 +5,6 @@ export const pathRegex = new RegExp("^m(\\/[0-9]+')+$");
 
 export const APTOS_DERIVATION_PATH = "m/44'/637'/0'/0'/0'";
 export const SUI_DERIVATION_PATH = "m/44'/784'/0'/0'/0'";
-
 export const SOLANA_DERIVATION_PATH = "m/44'/501'/0'/0'";
 export const EVM_DERIVATION_PATH = "m/44'/60'/0'/0/0";
 export const FILCOIN_DERIVATION_PATH = "m/44'/461'/0/0/0";
@@ -15,11 +14,13 @@ export const SUI_PRIVATE_KEY_PREFIX = 'suiprivkey';
 
 export const SUI_ADDRESS_LENGTH = 32;
 
-export const SIGNATURE_SCHEME_TO_FLAG = {
-    ED25519: 0x00,
-    Secp256k1: 0x01,
-    Secp256r1: 0x02,
-    MultiSig: 0x03,
-    ZkLogin: 0x05,
-    Passkey: 0x06,
+export const SIGNATURE_SCHEME_TO_FLAG: Record<string, number> = {
+    ED25519: 0,
+    Secp256k1: 1,
+    Secp256r1: 2,
+} as const;
+
+export const FIL_PROTOCOL_INDICATOR: Record<string, number> = {
+    SECP256K1: 1,
+    BLS: 3,
 } as const;

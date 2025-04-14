@@ -4,7 +4,8 @@ export interface IWalletFields {
     publicKey?: string;
     address: string;
 }
-export interface ICreateWallet extends {} {
+
+export interface ICreateWallet {
     length?: 128 | 256,
     path?: string
 }

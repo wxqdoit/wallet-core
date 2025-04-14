@@ -1,5 +1,5 @@
-import {EVM_DERIVATION_PATH} from "../constans";
-import {ICreateWallet,  IWalletFields} from "../types";
+import {EVM_DERIVATION_PATH, SOLANA_DERIVATION_PATH} from "../constans";
+import {ICreateWallet, IWalletFields} from "../types";
 import {generateMnemonic, mnemonicToSeedSync, validateMnemonic} from "bip39";
 import {HDKey} from "@scure/bip32";
 import {bytesToHex, hexToBytes} from "@noble/hashes/utils";
@@ -8,12 +8,17 @@ import {keccak_256} from "@noble/hashes/sha3";
 
 /**
  * Create a new EVM wallet
- * @param length
- * @param path
+ * @param params
+
  */
-export function createWallet({length = 128, path }: ICreateWallet): IWalletFields {
-    const mnemonic = generateMnemonic(length);
-    const {privateKey, publicKey} = getPrivateKeyByMnemonic(mnemonic, path || EVM_DERIVATION_PATH);
+export function createWallet(params?: ICreateWallet): IWalletFields {
+    const args = {
+        length: 128,
+        path: EVM_DERIVATION_PATH,
+        ...params
+    };
+    const mnemonic = generateMnemonic(args.length);
+    const {privateKey, publicKey} = getPrivateKeyByMnemonic(mnemonic, args.path);
     const address = getAddressByPrivateKey(privateKey);
     return {
         mnemonic,
@@ -39,7 +44,7 @@ export function getPrivateKeyByMnemonic(mnemonic: string, hdPath: string) {
 
     const key = masterKey.derive(hdPath);
 
-    if(!key.publicKey || !key.privateKey) {
+    if (!key.publicKey || !key.privateKey) {
         throw new Error('Invalid key');
     }
 

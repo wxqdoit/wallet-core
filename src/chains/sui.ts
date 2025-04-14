@@ -1,28 +1,36 @@
 import {bytesToHex, hexToBytes} from "@noble/hashes/utils";
 import {ed25519} from '@noble/curves/ed25519';
 import {blake2b} from '@noble/hashes/blake2b';
-import { bech32 } from '@scure/base';
+import {bech32} from '@scure/base';
 import {generateMnemonic, mnemonicToSeedSync, validateMnemonic} from "bip39";
-import {SIGNATURE_SCHEME_TO_FLAG, SUI_ADDRESS_LENGTH, SUI_DERIVATION_PATH, SUI_PRIVATE_KEY_PREFIX} from "../constans";
+import {
+    SIGNATURE_SCHEME_TO_FLAG,
+    SOLANA_DERIVATION_PATH,
+    SUI_ADDRESS_LENGTH,
+    SUI_DERIVATION_PATH,
+    SUI_PRIVATE_KEY_PREFIX
+} from "../constans";
 import {ICreateWallet, IWalletFields} from "../types";
 import {derivePath} from "../utils/ed25519-hd.ts";
 
 
 /**
  * create wallet
- * @param length
- * @param path
- * @param algo
+ * @param params
  */
-export function createWallet({length, path}: ICreateWallet): IWalletFields {
-    const mnemonic = generateMnemonic(length || 128);
-
-    const privateKey = getPrivateKeyByMnemonic(mnemonic, path || SUI_DERIVATION_PATH);
+export function createWallet(params?: ICreateWallet): IWalletFields {
+    const args = {
+        length: 128,
+        path: SUI_DERIVATION_PATH,
+        ...params
+    };
+    const mnemonic = generateMnemonic(args.length);
+    const privateKey = getPrivateKeyByMnemonic(mnemonic, args.path);
     const publicKey = bytesToHex(ed25519.getPublicKey(privateKey))
     const address = getAddressByPrivateKey(privateKey);
     return {
         mnemonic,
-        privateKey:encodeSuiPrivateKey(hexToBytes(privateKey)),
+        privateKey: encodeSuiPrivateKey(hexToBytes(privateKey)),
         publicKey,
         address
     }
@@ -56,14 +64,13 @@ export function getPrivateKeyByMnemonic(mnemonic: string, hdPath: string): strin
 }
 
 
-
 /**
  * This returns an ParsedKeypair object based by validating the
  * 33-byte Bech32 encoded string starting with `suiprivkey`, and
  * parse out the signature scheme and the private key in bytes.
  */
 export function decodeSuiPrivateKey(value: string) {
-    const { prefix, words } = bech32.decode(value as `${string}1${string}`);
+    const {prefix, words} = bech32.decode(value as `${string}1${string}`);
     if (prefix !== SUI_PRIVATE_KEY_PREFIX) {
         throw new Error('invalid private key prefix');
     }

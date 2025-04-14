@@ -7,7 +7,8 @@ export const APTOS_DERIVATION_PATH = "m/44'/637'/0'/0'/0'";
 export const SUI_DERIVATION_PATH = "m/44'/784'/0'/0'/0'";
 
 export const SOLANA_DERIVATION_PATH = "m/44'/501'/0'/0'";
-export const EVM_DERIVATION_PATH = "m/44'/60'/0'/0/0"
+export const EVM_DERIVATION_PATH = "m/44'/60'/0'/0/0";
+export const FILCOIN_DERIVATION_PATH = "m/44'/461'/0/0/0";
 
 
 export const SUI_PRIVATE_KEY_PREFIX = 'suiprivkey';

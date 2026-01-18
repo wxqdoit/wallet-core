@@ -1,0 +1,80 @@
+{
+    "name": "wallet-core",
+    "version": "1.0.0",
+    "type": "module",
+    "description": "Multi-chain cryptocurrency wallet core library supporting 9+ blockchains",
+    "main": "./dist/index.js",
+    "module": "./dist/index.js",
+    "types": "./dist/index.d.ts",
+    "exports": {
+        ".": {
+            "import": "./dist/index.js",
+            "types": "./dist/index.d.ts"
+        }
+    },
+    "files": [
+        "dist",
+        "README.md",
+        "LICENSE"
+    ],
+    "scripts": {
+        "test": "jest",
+        "test:watch": "jest --watch",
+        "test:coverage": "jest --coverage",
+        "build": "tsc",
+        "build:watch": "tsc --watch",
+        "clean": "rm -rf dist",
+        "prepublishOnly": "npm run clean && npm run build && npm test"
+    },
+    "keywords": [
+        "wallet",
+        "crypto",
+        "blockchain",
+        "ethereum",
+        "bitcoin",
+        "solana",
+        "aptos",
+        "sui",
+        "tron",
+        "near",
+        "ton",
+        "filecoin",
+        "bip39",
+        "bip32",
+        "bip44",
+        "hd-wallet"
+    ],
+    "author": "",
+    "license": "ISC",
+    "repository": {
+        "type": "git",
+        "url": ""
+    },
+    "bugs": {
+        "url": ""
+    },
+    "homepage": "",
+    "dependencies": {
+        "@noble/curves": "^1.8.1",
+        "@noble/hashes": "^1.7.1",
+        "@scure/base": "^2.0.0",
+        "@scure/bip32": "^1.6.2",
+        "@types/bip32": "^2.0.4",
+        "@types/bip39": "^3.0.4",
+        "@types/bs58": "^5.0.0",
+        "@types/jest": "^29.5.14",
+        "@types/node": "^22.14.0",
+        "bip32": "^5.0.0-rc.0",
+        "bip39": "^3.1.0",
+        "bitcoinjs-lib": "^6.1.7",
+        "bs58": "^6.0.0",
+        "jest": "^29.7.0",
+        "scrypt-js": "^3.0.1",
+        "ts-node": "^10.9.2",
+        "typescript": "^5.8.3"
+    },
+    "devDependencies": {
+        "@babel/preset-typescript": "^7.27.0",
+        "ts-jest": "^29.3.1"
+    }
+}

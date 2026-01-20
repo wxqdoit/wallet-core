@@ -13,7 +13,6 @@ export const TRON_DERIVATION_PATH = "m/44'/195'/0'/0/0";
 export const TON_DERIVATION_PATH = "m/44'/607'/0'";
 export const NEAR_DERIVATION_PATH = "m/44'/397'/0'";
 
-
 export const SUI_PRIVATE_KEY_PREFIX = 'suiprivkey';
 
 export const SUI_ADDRESS_LENGTH = 32;
